@@ -9,3 +9,11 @@ __pycache__/
 # Large Phase 1 pipeline outputs -- regenerable from scripts, not source of truth
 python/postcode_area_lookup.csv
 python/stations_load_ready.csv
+
+# Phase 2 working data -- regenerable from scripts, not source of truth
+backtest_station_selection*.csv
+station_history_cache.csv
+ground_truth_sources_discovered.csv
+west_midlands_no_data_stations.csv
+missing_stations_measures.txt
+test.py
