@@ -48,6 +48,7 @@ host is reachable from that sandbox); run and sanity-check locally.
 """
 
 import csv
+import os
 import time
 from math import radians, sin, cos, sqrt, atan2
 
@@ -91,12 +92,17 @@ MIN_HISTORY_CUTOFF = "2015-01-01"
 # every time. Delete this file if you ever suspect stale/bad cached data.
 CACHE_PATH = "station_history_cache.csv"
 
+PGPASSWORD = os.environ.get("PGPASSWORD")
+if not PGPASSWORD:
+    raise SystemExit(
+        "Set PGPASSWORD environment variable first (do not hardcode it here).")
+
 DB_CONFIG = {
     "host": "c24-ross-clark-water-stress-platform.c57vkec7dkkx.eu-west-2.rds.amazonaws.com",
     "port": 5432,
     "dbname": "waterstress",
     "user": "postgres",
-    "password": "REDACTED",  # pull from password manager / env var — never hardcode
+    "password": PGPASSWORD,
     "connect_timeout": 10,  # fail fast instead of hanging silently on a blocked connection
 }
 

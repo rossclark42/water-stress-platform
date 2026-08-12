@@ -21,6 +21,7 @@ Requires: psycopg2, requests
 """
 
 import csv
+import os
 import time
 from datetime import date
 
@@ -57,12 +58,17 @@ AREA_NAME = "West Midlands"
 MIN_DATE = "2015-01-01"
 MAX_DATE = date.today().isoformat()
 
+PGPASSWORD = os.environ.get("PGPASSWORD")
+if not PGPASSWORD:
+    raise SystemExit(
+        "Set PGPASSWORD environment variable first (do not hardcode it here).")
+
 DB_CONFIG = {
     "host": "c24-ross-clark-water-stress-platform.c57vkec7dkkx.eu-west-2.rds.amazonaws.com",
     "port": 5432,
     "dbname": "waterstress",
     "user": "postgres",
-    "password": "REDACTED",  # fill in before running
+    "password": PGPASSWORD,
     "connect_timeout": 10,
 }
 

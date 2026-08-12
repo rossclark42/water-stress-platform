@@ -42,6 +42,7 @@ Requires: psycopg2, requests
 """
 
 import csv
+import os
 import time
 from datetime import date
 
@@ -83,12 +84,17 @@ MAX_DATE = date.today().isoformat()
 # per EA docs' own recommended approach for logged data
 GROUNDWATER_DIP_TIME = "09:00:00"
 
+PGPASSWORD = os.environ.get("PGPASSWORD")
+if not PGPASSWORD:
+    raise SystemExit(
+        "Set PGPASSWORD environment variable first (do not hardcode it here).")
+
 DB_CONFIG = {
     "host": "c24-ross-clark-water-stress-platform.c57vkec7dkkx.eu-west-2.rds.amazonaws.com",
     "port": 5432,
     "dbname": "waterstress",
     "user": "postgres",
-    "password": "REDACTED",  # pull from password manager / env var — never hardcode
+    "password": PGPASSWORD,
     "connect_timeout": 10,
 }
 
